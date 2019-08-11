@@ -1,2 +1,9 @@
-.merlin
 _build
+*.install
+*.exe
+*.cmi
+*.cmo
+*.cmx
+*.o
+*.png
+.merlin

@@ -1,5 +1,5 @@
 open Images
-   
+
 let () =
   let width  = int_of_string Sys.argv.(1)
   and length = int_of_string Sys.argv.(2)
