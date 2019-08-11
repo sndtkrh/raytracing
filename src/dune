@@ -1,4 +1,6 @@
 (executable
   (name main)
   (public_name raytracing)
-  (libraries camlimages))
+  (libraries camlimages
+             camlimages.core
+             camlimages.png))
