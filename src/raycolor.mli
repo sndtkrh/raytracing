@@ -19,7 +19,4 @@ type coloredSurface =
   | ES of emittingSurface
   | AS of absorbingSurface
 
-let color_convertor decrese_rate color =
-  { r = color.r *. decrese_rate.r;
-    g = color.g *. decrese_rate.g;
-    b = color.g *. decrese_rate.b }
+val color_convertor : t -> t -> t

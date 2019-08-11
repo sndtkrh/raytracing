@@ -21,8 +21,16 @@ type surface =
   | Sphere of sphere
   | Triangle of triangle
 
+let eps = 1e-8
 let zero_vec = {px = 0.0; py = 0.0; pz = 0.0}
 
+let almost_equal a b = (abs_float (a -. b)) < eps
+  
+let cross_product u v =
+  {px = u.py *. v.pz -. u.pz *. v.py;
+   py = u.pz *. v.px -. u.px *. v.pz;
+   pz = u.px *. v.py -. u.py *. v.px}
+  
 let v_plus u v =
   {px = u.px +. v.px;
    py = u.py +. v.py;
@@ -33,14 +41,31 @@ let v_minus u v =
    py = u.py -. v.py;
    pz = u.pz -. v.pz}
      
-let distance p0 p1 =
-  let dx = p0.px -. p1.px in
-  let dy = p0.py -. p1.py in
-  let dz = p0.pz -. p1.pz in
-  sqrt ((dx *. dx) +. (dy *. dy) +. (dz *. dz))
-
 let inner_product u v =
   u.px *. v.px +. u.py *. v.py +. u.pz *. v.pz
+
+let norm v = sqrt (inner_product v v)
+
+let distance p0 p1 = norm (v_minus p1 p0)
+
+let area_of_triangle tri =
+  norm (cross_product (v_minus tri.tri_pt1 tri.tri_pt0) (v_minus tri.tri_pt2 tri.tri_pt0))
+
+let point_in_triangle pt tri =
+  let s = area_of_triangle tri in
+  let s0 = area_of_triangle {
+               tri_pt0 = pt;
+               tri_pt1 = tri.tri_pt1;
+               tri_pt2 = tri.tri_pt2} in
+  let s1 = area_of_triangle {
+               tri_pt0 = tri.tri_pt0;
+               tri_pt1 = pt;
+               tri_pt2 = tri.tri_pt2} in
+  let s2 = area_of_triangle {
+               tri_pt0 = tri.tri_pt0;
+               tri_pt1 = tri.tri_pt1;
+               tri_pt2 = pt} in
+  almost_equal s (s0 +. s1 +. s2)
 
 let stretch a v =
   {px = a *. v.px;
