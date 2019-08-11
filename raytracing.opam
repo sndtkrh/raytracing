@@ -1,0 +1,17 @@
+opam-version: "2.0"
+name: "raytracing"
+version: "1.0"
+maintainer: "sndtkrh@gmail.com"
+authors: ["Takahiro Sanada"]
+homepage: "https://github.com/sndtkrh/raytracing"
+bug-reports: "https://github.com/sndtkrh/raytracing/issues"
+dev-repo: "git+https://github.com/sndtkrh/raytracing.git"
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+]
+depends: [
+  "ocaml" {>= "4.06.0"}
+  "camlimages" {>= "5.0.1"}
+  "dune" {build}
+]
+synopsis: "Ray tracing"
