@@ -1,15 +1,28 @@
-open Images
+open Geometry3d
+open Raycolor
+open Reflection
 
-let () =
-  let width  = int_of_string Sys.argv.(1)
-  and length = int_of_string Sys.argv.(2)
-  and name   = Sys.argv.(3)
-  and black = {r = 0; g=0; b=0; }
-  and white = {r = 255; g=255; b=255; } in
-  let image = Rgb24.make width length black in
-  for i = 0 to width-1 do
-    for j = 0 to (length/2) - 1 do
-      Rgb24.set image i j white;
-    done;
-  done;
-  Png.save name [] (Images.Rgb24 image)
+let _ =
+  let sl = [
+      ES {e_surface =
+            Triangle {tri_pt0 = {px = 0.; py = 0.; pz = 0.};
+                      tri_pt1 = {px = 0.1; py = 1.; pz = 0.};
+                      tri_pt2 = {px = 0.; py = 0.; pz = 1.}};
+          e_color = {r = 1.; g = 1.; b = 1.}};
+      ES {e_surface =
+            Sphere {s_center = {px = -1.0; py = 0.5; pz = 0.05};
+                    s_rad = 1.0};
+          e_color = {r = 1.; g = 1.; b = 1.}}
+    ] in
+  let ray0 = {
+      l_pt = {px = 1.; py = 1.; pz = 0.05};
+      l_dir = {px = -1.; py = -0.5; pz = 0.}} in
+  let tmp = reflect ray0 sl in
+  let print_result res = 
+    let (a, ray1) = res in
+    Printf.printf "a = %f\n" a;
+    Printf.printf "l_pt = (%f, %f, %f)\n"
+      ray1.l_pt.px ray1.l_pt.py ray1.l_pt.pz;
+    Printf.printf "l_dir = (%f, %f, %f)\n\n"
+      ray1.l_dir.px ray1.l_dir.py ray1.l_dir.pz in
+  List.map print_result tmp

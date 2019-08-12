@@ -1,3 +1,6 @@
 
-val reflect Geometry.line -> Raycolor.coloredSurface array -> Geometry.line
+val reflect:
+  Geometry3d.line
+  -> Raycolor.coloredSurface list
+  -> (float * Geometry3d.line) list
 

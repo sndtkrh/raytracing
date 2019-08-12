@@ -6,12 +6,12 @@ type t = {
   }
 
 type emittingSurface = {
-    e_surface: Geometry.surface;
+    e_surface: Geometry3d.surface;
     e_color: t
   }
 
 type absorbingSurface = {
-    a_surface: Geometry.surface;
+    a_surface: Geometry3d.surface;
     a_color: t
   }
 

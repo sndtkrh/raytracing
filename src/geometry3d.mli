@@ -33,7 +33,13 @@ val area_of_triangle : triangle -> float
 val point_in_triangle : point -> triangle -> bool
 val stretch : float -> point -> point
 val get_point_on_line : line -> float -> point
-val point_line_foot_of_perpendicular : point -> line -> point
+val point_line_foot_of_perpendicular:
+  point -> line -> (point * float)
 val normalize : point -> point
-val normalize : line -> line
-val reflect_on_surface : line -> line -> line
+val normalize_line : line -> line
+
+type intersection_status =
+  | Intersection of float * line
+  | NoIntersection
+
+val reflect_on_surface : line -> surface -> intersection_status
