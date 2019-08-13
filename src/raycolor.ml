@@ -1,18 +1,18 @@
 
-type t = {
-    r: float;
-    g: float;
-    b: float
+type raycol = {
+    cr: float;
+    cg: float;
+    cb: float
   }
 
 type emittingSurface = {
     e_surface: Geometry3d.surface;
-    e_color: t
+    e_color: raycol
   }
 
 type absorbingSurface = {
     a_surface: Geometry3d.surface;
-    a_color: t
+    a_color: raycol
   }
 
 type coloredSurface =
@@ -20,6 +20,6 @@ type coloredSurface =
   | AS of absorbingSurface
 
 let color_convertor decrese_rate color =
-  { r = color.r *. decrese_rate.r;
-    g = color.g *. decrese_rate.g;
-    b = color.g *. decrese_rate.b }
+  { cr = color.cr *. decrese_rate.cr;
+    cg = color.cg *. decrese_rate.cg;
+    cb = color.cb *. decrese_rate.cb }

@@ -117,18 +117,11 @@ type intersection_status =
 let intersection_ray_triangle ray tri =
   let n = normal_vector_of_triangle tri in
   let (a, r) = reflect_on_surface_n ray n in
-  Printf.printf
-    "a = %f, point = %f %f %f\n"
-    a
-    r.l_pt.px
-    r.l_pt.py
-    r.l_pt.pz;
   if point_in_triangle r.l_pt tri
   then
     Intersection (a, r)
   else
-    (Printf.printf "nointersection\n";
-     NoIntersection)
+     NoIntersection
 
 let intersection_ray_sphere ray sph =
   let normalized_ray = normalize_line ray in
@@ -155,5 +148,4 @@ let reflect_on_surface ray sur =
   | Sphere sph ->
      intersection_ray_sphere ray sph
   | Triangle tri ->
-     Printf.printf "reflect on triangle\n";
      intersection_ray_triangle ray tri
