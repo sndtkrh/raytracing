@@ -28,10 +28,13 @@ let reflect (ray: line) (col_surs: coloredSurface list) =
            | (NoIntersection, _) ->
               ray_list)
          (List.map (reflect' ray) col_surs) []) in
-  match reflection_list with
-  | [] -> None
-  | (_, new_ray, refl_res) :: _ -> Some (new_ray, refl_res)
-
+  let rec first_positive = function
+    | [] -> None
+    | (a, new_ray, refl_res) :: l ->
+       if a > 0.
+       then Some (new_ray, refl_res)
+       else first_positive l in
+  first_positive reflection_list
 
 let rec raytrace' (ray: line) (col_surs: coloredSurface list)
           (color_conv: raycol -> raycol) (num: int) =

@@ -16,7 +16,12 @@ let save img =
   for i = 0 to width - 1 do
     for j = 0 to height - 1 do
       match img.(i).(j) with
-      | Collide c -> Rgb24.set image i j (color8bit c)
+      | Collide c ->
+         Rgb24.set
+           image
+           j
+           (width - 1 - i)
+           (color8bit c)
       | _ -> ()
     done;
   done;
